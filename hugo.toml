@@ -1,4 +1,4 @@
-baseURL = 'https://breadcrumbscollector.github.io/'
+baseURL = 'https://nhatthanh020996.github.io'
 languageCode = 'en-us'
 theme = 'hugo-theme-cleanwhite'
 title = 'breadcrumbscollector'
