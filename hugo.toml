@@ -16,8 +16,7 @@ home = ["HTML", "RSS", "Algolia"]
   header_image = "img/background.jpeg"
   SEOTitle = "breadcrumbscollector"
   description = "赵化冰，程序员, 开源爱好者，生活探险家 | 这里是 赵化冰 的博客，与你一起发现更大的世界。"
-  keyword = "赵化冰, zhaohuabing, Zhaohuabing, , 赵化冰的网络日志, 赵化冰的博客, Zhaohuabing Blog, 博客, 个人网站, 互联网, Web, 云原生, PaaS, Istio, Kubernetes, 微服务, Microservice"
-  #slogan = "路在脚下，心向远方"
+  keyword = "networing, operating system, computer architecture, python, socket programing, database"
 
   image_404 = "img/background.jpeg"
   title_404 = "Page Not Found :("
@@ -36,7 +35,7 @@ home = ["HTML", "RSS", "Algolia"]
 
   # Sidebar settings
   sidebar_about_description = "Backend Developer"
-  sidebar_avatar = "img/avatar.jpg"      # use absolute URL, seeing it's used in both `/` and `/about/`
+  sidebar_avatar = "img/avatar.png"      # use absolute URL, seeing it's used in both `/` and `/about/`
 
   featured_tags = true 
   featured_condition_size = 1 
