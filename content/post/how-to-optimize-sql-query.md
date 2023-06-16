@@ -8,7 +8,6 @@ date:    2021-11-04T12:00:00
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
 tags:
-    - ACID
     - Database
     - PostgreSQL
 URL: "/2017/11/04/istio-install_and_example/"
