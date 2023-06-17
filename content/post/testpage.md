@@ -11,7 +11,7 @@ tags:
     - ACID
     - Database
     - PostgreSQL
-URL: "/2017/11/04/istio-install_and_example/"
+URL: "isolation"
 categories: [ Tech ]
 ---
 

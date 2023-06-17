@@ -11,7 +11,7 @@ tags:
     - Database
     - PostgreSQL
     - Pooling
-URL: "/2017/11/04/istio-install_and_example/"
+URL: "pgbouncer"
 categories: [ Tech ]
 ---
 

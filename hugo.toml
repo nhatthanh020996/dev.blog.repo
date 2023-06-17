@@ -53,7 +53,7 @@ home = ["HTML", "RSS", "Algolia"]
   twikoo_env_id = ""
 
   #Enable wechat pay & alipay to allow readers send reward money if they like the articles 
-  reward = true 
+  #reward = true 
   # reward_guide = "如果这篇文章对你有用,请随意打赏" 
 
   #friends = true
@@ -100,9 +100,21 @@ isPlainText = true
 mediaType = "application/json"
 notAlternative = true
 
+[params.giscus]
+data_repo="nhatthanh020996/giscus-blog-comments"
+data_repo_id="nhatthanh020996/giscus-blog-comments"
+data_category="Announcements"
+data_category_id="your category id"
+data_mapping="pathname"
+data_reactions_enabled="0"
+data_theme="light"
+data_lang="en"
+crossorigin="anonymous"
+
 [params.algolia]
 vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
 params = ["categories", "tags"] 
+
 
 [markup]
   [markup.tableOfContents]

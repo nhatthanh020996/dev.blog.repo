@@ -10,7 +10,7 @@ image: "/img/posts/isolation/title_image.jpeg"
 tags:
     - Database
     - PostgreSQL
-URL: "/2017/11/04/istio-install_and_example/"
+URL: "how-to-optimize-sql-query"
 categories: [ Tech ]
 ---
 
