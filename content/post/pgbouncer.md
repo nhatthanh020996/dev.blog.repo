@@ -11,7 +11,7 @@ tags:
     - Database
     - PostgreSQL
     - Pooling
-URL: "pgbouncer"
+URL: "/pgbouncer/"
 categories: [ Tech ]
 ---
 

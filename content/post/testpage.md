@@ -11,7 +11,7 @@ tags:
     - ACID
     - Database
     - PostgreSQL
-URL: "isolation"
+URL: "/testpage/"
 categories: [ Tech ]
 ---
 

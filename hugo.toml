@@ -13,7 +13,7 @@ hasCJKLanguage = true
 home = ["HTML", "RSS", "Algolia"]
 
 [params]
-  header_image = "/img/posts/isolation/title_image.jpeg"
+  header_image = "img/background.jpeg"
   SEOTitle = "breadcrumbscollector"
   description = "赵化冰，程序员, 开源爱好者，生活探险家 | 这里是 赵化冰 的博客，与你一起发现更大的世界。"
   keyword = "networing, operating system, computer architecture, python, socket programing, database"
@@ -41,16 +41,16 @@ home = ["HTML", "RSS", "Algolia"]
   featured_condition_size = 1 
 
   # Baidu Analytics
-  ba_track_id = ""
+  # ba_track_id = ""
   
   # We need a proxy to access Disqus api in China
   # Follow https://github.com/zhaohuabing/disqus-php-api to set up your own disqus proxy
-  disqus_proxy = ""
-  disqus_site = ""
+  #disqus_proxy = ""
+  #disqus_site = ""
 
   # Twikoo comments
   # Follow https://twikoo.js.org/ to set up your own env_id
-  twikoo_env_id = ""
+  #twikoo_env_id = ""
 
   #Enable wechat pay & alipay to allow readers send reward money if they like the articles 
   #reward = true 
@@ -71,28 +71,28 @@ home = ["HTML", "RSS", "Algolia"]
   linkedin       = "https://www.linkedin.com/in/tran-nhat-thanh-9219bb184/"
   
 
-  [[params.bookmark_link]]
-  title =  "Martin Fowler"
-  href =  "https://martinfowler.com"
-  [[params.bookmark_link]]
-  title = "ServiceMesher"
-  href =  "http://www.servicemesher.com"
-  [[params.bookmark_link]]
-  title =  "Pxhere"
-  href = "https://pxhere.com"
-  [[params.bookmark_link]]
-  title = "unsplash"
-  href = "https://unsplash.com"
+  #[[params.bookmark_link]]
+  #title =  "Martin Fowler"
+  #href =  "#"
+  #[[params.bookmark_link]]
+  #title = "ServiceMesher"
+  #href =  "http://www.servicemesher.com"
+  #[[params.bookmark_link]]
+  #title =  "Pxhere"
+  #href = "https://pxhere.com"
+  #[[params.bookmark_link]]
+  #title = "unsplash"
+  #href = "https://unsplash.com"
   
-  #[[params.addtional_menus]]
-  #title =  "ARCHIVE"
-  #href =  "/archive/"
-  #[[params.addtional_menus]]
-  #title =  "NOTES"
-  #href =  "/notes/"
-  #[[params.addtional_menus]]
-  #title =  "ABOUT"
-  #href =  "/about/index/"
+  [[params.addtional_menus]]
+  title =  "ARCHIVE"
+  href =  "/archive/"
+  [[params.addtional_menus]]
+  title =  "NOTES"
+  href =  "/notes/"
+  [[params.addtional_menus]]
+  title =  "ABOUT"
+  href =  "/about/index/"
 
 [outputFormats.Algolia]
 baseName = "algolia"
@@ -101,8 +101,8 @@ mediaType = "application/json"
 notAlternative = true
 
 [params.giscus]
-data_repo="nhatthanh020996/giscus-blog-comments"
-data_repo_id="nhatthanh020996/giscus-blog-comments"
+data_repo="nhatthanh020996/nhatthanh020996.github.io"
+data_repo_id="nhatthanh020996/nhatthanh020996.github.io"
 data_category="Announcements"
 data_category_id="your category id"
 data_mapping="pathname"

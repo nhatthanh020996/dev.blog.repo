@@ -10,7 +10,7 @@ image: "/img/posts/isolation/title_image.jpeg"
 tags:
     - TCP/IP
     - Socket
-URL: "socket-programming"
+URL: "/socket-programming/"
 categories: [ Tech ]
 ---
 

@@ -10,7 +10,7 @@ image: "/img/posts/isolation/title_image.jpeg"
 tags:
     - Database
     - PostgreSQL
-URL: "how-to-optimize-sql-query"
+URL: "/how-to-optimize-sql-query/"
 categories: [ Tech ]
 ---
 

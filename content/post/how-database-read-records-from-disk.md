@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Socket Programming"
+title:      "How database read records from disk"
 description: "Isolation là tính chất bị underated nhất trong ACID, trong bài viết này
 mình xin trình bày rõ hơn về tính chất này cũng như đưa ra các trường hợp cần setup đúng
 isolation level trong thực tế"
@@ -11,7 +11,7 @@ tags:
     - Database
     - PostgreSQL
     - Pooling
-URL: "socket-programing"
+URL: "/how-database-read-records-from-disk/"
 categories: [ Tech ]
 ---
 
