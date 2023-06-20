@@ -1,10 +1,8 @@
 ---
 layout:     post
 title:      "How to optimize sql query"
-description: "Isolation là tính chất bị underated nhất trong ACID, trong bài viết này
-mình xin trình bày rõ hơn về tính chất này cũng như đưa ra các trường hợp cần setup đúng
-isolation level trong thực tế"
-date:    2021-11-04T12:00:00
+description: "Discover practical tips for optimizing network performance, query execution, and scaling hardware in a database system. Enhance efficiency and prepare for growth"
+date:    2023-06-14
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
 tags:
@@ -14,4 +12,27 @@ URL: "/how-to-optimize-sql-query/"
 categories: [ Tech ]
 ---
 
-# How to optimize sql query
+## Optimize network
+
+- Keep connection.
+
+- Create connection pooling.
+
+- Integrate many query in a connection.
+
+## Optimize query execution
+
+- Avoid n+1 problem.
+
+- Using EXPLAIN query to inspect the query plan.
+
+- Indexing.
+
+- Partition.
+
+- Sharding.
+
+## Scale hardware
+- Vertical scale (scale up)
+
+- Horizontal scale using Master-Slave architecture (scale out).
