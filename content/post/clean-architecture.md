@@ -45,7 +45,7 @@ chi phí ít nhất?
 Clean Architecture vận dụng ý tưởng chia project ra thành nhiều lớp, các lớp này giao tiếp với nhau bằng một cách nào đó
 mà việc thay đổi môt lớp không làm ảnh hưởng đến những lớp còn lại, cách phân lớp này có thể đươc minh hoá như hình bên 
 dưới.
-![](/img/2018-03-29-what-is-service-mesh-and-istio/microservice.PNG)
+![](/img/clean-architecture/layers.png)
 
 ### Entities.
 Trong mô hình trên Entities là những đối tượng sẽ xuất hiện trong trong project. Ví dụ: project của bạn là thiết kế một 
@@ -125,28 +125,47 @@ những tính năng cơ bản như sau:
 - Đôc giả đọc bài.
 - Độc giả tìm kiếm list những bài viết liên quan đến một tag name nào đó.
 - ...
+Ở phần này mình chỉ đưa ra các bước để xây dựng code implement một tính năng đơn giản đó là list ra danh sách bài 
+viết có trong blog. Những tính năng còn lại có thể implement bằng cách thức gần như tương tự.
 
-### Entities.
-Ở lớp Entities chúng ta sẽ có những entities bao gồm: Post, Comment, Tag. Chúng ta sẽ biểu diễn những
-entities này trong python như sau (ở đây mình chỉ biểu diễn một entity trong số này, những entity còn 
-lại, các bạn có thể làm tương tự):
+### External System.
+Web framework nằm ở External System chính là nơi đầu tiên tiếp nhận HTTP request, và ở đây nhiệm vụ của web framework
+chỉ là tiếp nhận HTTP request. Phần xử lý logic sẽ được gọi xuống UseCase layer để xử lý, sau đó web framework nhận lại
+kết quả trả ra từ UseCase và tạo HTTP response.
+
+![](/img/clean-architecture/web-usecase.png)
+
+Ở đây ban đọc có thể thấy 1 instance `post_repository` và `list_posts_usecase` được khởi tạo trực tiếp từ External System,
+nó tuân theo goden rule mà mình đã nói đến ở phần trước.
 ```python
-import attr
-from datetime import datetime
+from internal.usecases import ListPostsUsecase
 
 
-@attr.s(frozen=True)
-class PostEntity:
-    id: int = attr.ib()
-    title: str = attr.ib()
-    content: str = attr.ib()
-    created_at: datetime = attr.ib(default=datetime.now())
-    update_at: datetime = attr.ib(default=datetime.now())
+class Post(View):
+    def get(self, request):
+        limit = request.query_params.get('limit')
+        page = request.query_params.get('page')
+
+        # initialize an instance of ListPostsUsecase
+        post_repository = DjangoPostRepositoryImpl()
+        list_posts_usecase = ListPostsUsecase(post_repository)
+        list_posts_usecase.with_params(page, limit)
+        usecase_result = list_posts_usecase.execute()
+
+        response = Serializer(usecase_result).data
+        return response
 ```
 
 ### Usecases.
-Lớp Usecases chứa những yêu cầu về mặt business logic của project, trong trường hợp này giả sử nếu usecase là 
-hiển thị danh sách bài posts:
+UseCase chịu trách nhiệm xử lý business logic, UseCase gọi vào database lấy dữ liệu để phục vụ cho việc xử lý business logic.
+![](/img/clean-architecture/usecase-database.png)
+
+Do database nằm ở External System layer nên UseCase phải giao tiếp với database thông qua 1 interface.
+![](/img/clean-architecture/usecase-adapter.png)
+
+Trong đoạn code dưới đây, bạn thấy rằng `IPostRepository` là một interface giúp UseCase có thể giao tiếp được với database. Việc
+sử dụng một interface như thế giúp decoupling Usecase và database, kỹ thuật này được sử dụng phổ biến trong lập trình hướng đối
+tượng, và được biết đến với tên gọi là Dependency Inversion Principle.
 ```python
 class ListPostsUsecase:
     def __init__(self, post_repository: IPostRepository):
@@ -160,9 +179,14 @@ class ListPostsUsecase:
     def execute(self):
         return self._post_repository.posts(page=self._page, limit=self._limit)
 ```
-Usecase sẽ tương tác với database thông qua một interface như `post_repository` trong đoạn code trên.
+Usecase sẽ tương tác với database thông qua một interface như `post_repository` trong đoạn code trên. Kết quả trả ra từ những function được gọi
+qua interface này sẽ được biểu diễn bằng Entity hoặc các kiểu dữ liệu, cấu trúc dữ liệu cơ bản khác trong Python như: `int`, `string`, `list`,
+`dict`. Bây giờ, chúng ta sẽ tiếp tục xây dựng IPostRepository.
 
 ### Adapter Interface.
+Chúng ta sẽ tiếp tục xây dựng `IPostRepository` và những class implement interface này. Ở đây mình implement class `DjangoPostRepositoryImpl`
+class này tận dụng ORM của Django để lấy dữ liệu trực tiếp từ database.
+![](/img/clean-architecture/usecase-adapter-database.png)
 ```python
 import abc
 from entities import PostEntity
@@ -200,37 +224,31 @@ class DjangoPostRepositoryImpl(IPostRepository):
         posts = ORMPost.objects.all()[start_item:end_item]
         return self._to_entities(posts)
 ```
-
-### External System.
+### Entities.
 ```python
-from internal.usecases import ListPostsUsecase
+import attr
+from datetime import datetime
 
 
-class Post(View):
-    def get(self, request):
-        limit = request.query_params.get('limit')
-        page = request.query_params.get('page')
-
-        # initialize an instance of ListPostsUsecase
-        post_repository = DjangoPostRepositoryImpl()
-        list_posts_usecase = ListPostsUsecase(post_repository)
-        list_posts_usecase.with_params(page, limit)
-        usecase_result = list_posts_usecase.execute()
-
-        response = Serializer(usecase_result).data
-        return response
+@attr.s(frozen=True)
+class PostEntity:
+    id: int = attr.ib()
+    title: str = attr.ib()
+    content: str = attr.ib()
+    created_at: datetime = attr.ib(default=datetime.now())
+    update_at: datetime = attr.ib(default=datetime.now())
 ```
-
-Ở đây vai trò của Django framework chỉ là nhận HTTP request và respond HTTP response. Django không can thiệp một tí nào để Internal layer.
 
 ## Phân tích ưu và nhược điểm của Clean Architecture.
 ### Ưu điểm.
 - Nếu để ý thì ta sẽ thấy Clean Architecture sử dụng 5 nguyên tắc SOLID để thiết kế một mã nguồn giúp ta dễ dàng chỉnh sửa, mở rộng tính năng.
 ví dụ: usecase giao tiếp với database thông qua interface chính là áp dụng nguyên tắc thứ 5 - Dependency Inverson Priciple. Mà việc sử dung
 Dependency Inversion cũng đã giúp code của bạn thoả mãn các quy tắc khác của SOLID.
+
 - Sau khi project đã trải qua thời gian ban đầu và bước vào quá trình ổn định, việc có được một thiết kế tốt sẽ giúp chúng ta giảm được rất nhiều
 chi phí khi cần chỉnh sửa tính năng cũ cũng như thêm vào những tính năng mới.
 
+- Clean Architecture giúp bạn cực kỳ thuận lợi để follow Test Driven Development. Bạn dễ dàng test từng layer một mà chưa cần phải implement những layer còn lại.
 ### Nhược điểm.
 - Tốn kém chi phí ban đầu (phải suy nghĩ để có một thiết kế hợp lý, thời gian implement lâu vì số lượng code lớn) vì vậy với những project đòi hỏi
 triển khai nhanh thì Clean Architecture không thể làm được.
@@ -243,4 +261,4 @@ thì hãy tham khảo thêm những nguồn tài liều mà mình trích dẫn �
 
 ## Tài liệu tham khảo.
 - https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164
-- 
+- https://www.youtube.com/watch?v=C7MRkqP5NRI&pp=ygUZZGphbmdvIGNsZWFuIGFyY2hpdGVjdHVyZQ%3D%3D
