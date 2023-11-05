@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      ""
-description: "Kiến thức ở trường đại học đã mang lại cho mình điều gì?"
+title:      "Kiến thức ở trường đại học đã mang lại cho mình điều gì?"
+description: "Những môn học nào được học ở đại học mà bạn cho là quan trọng nhất? Kiến thức ở trường đại học có thực sự hữu dụng khi chúng ta đi làm hay không? Trong bài viết này mình sẽ nói ra quan điểm của mình về vấn đề này."
 date:    2023-10-20
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
