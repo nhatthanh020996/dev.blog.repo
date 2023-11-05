@@ -7,7 +7,7 @@ author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
 tags:
     - Git
-URL: "/git-internal/"
+URL: "/git-merge-and-git-rebase/"
 categories: [ Tech ]
 ---
 ## Git merge thực sự là gì?
