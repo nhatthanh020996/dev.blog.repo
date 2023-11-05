@@ -2,7 +2,7 @@
 layout:     post
 title:      ""
 description: "Kiến thức ở trường đại học đã mang lại cho mình điều gì?"
-date:    2023-06-11
+date:    2023-10-20
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
 tags:

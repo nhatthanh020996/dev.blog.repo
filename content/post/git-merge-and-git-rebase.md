@@ -2,7 +2,7 @@
 layout:     post
 title:      "Git rebase và git merge"
 description: ""
-date:    2023-06-12
+date:    2023-10-12
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
 tags:
