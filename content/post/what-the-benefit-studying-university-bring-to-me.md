@@ -7,13 +7,13 @@ author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
 tags:
     - Discussion
-URL: "/what-the-benefit-studying-university-bring-to-me/"
+URL: "/what-the-benefit-studying-university-bring-to"
 categories: [ Tech ]
 ---
 
-Mình cũng từng học đại học, chuyên ngành Khoa học máy tính ở Đại học Bách Khoa Hà Nội. Những năm đi học cho đến khi ra trường, trong khoảng 1-2 năm, mình luôn băn khoăn về việc liệu có đáng để bỏ 5 năm cùng với hàng trăm triệu tiền học để theo đuổi con đường học tại trường đại học hay không. Trong khi đó, có nhiều bạn học tại các trung tâm chỉ cần 6 tháng là có thể bắt đầu làm việc hoặc cũng có các khóa học trên Udemy giúp mình nắm kiến thức trong thời gian ngắn.
+Mình cũng từng học đại học, chuyên ngành Khoa học máy tính ở Đại học Bách Khoa Hà Nội. Những năm đi học cho đến khi ra trường khoảng 1-2 năm, mình luôn băn khoăn về việc liệu có đáng để bỏ thời gian 5 năm, với hàng trăm triệu tiền để học đại học hay không. Trong khi đó, có nhiều bạn học tại các trung tâm chỉ cần 6 tháng là có thể bắt đầu làm việc, hoặc học những khoá học Udemy giúp mình nắm kiến thức trong thời gian ngắn.
 
-Cho đến khi làm việc trong lĩnh vực này trong 3 năm, mình nhận ra rằng kiến thức đã học tại trường đại học thật sự là những nền tảng giúp mình thực hiện các bước đột phá kỹ thuật. Kiến thức này làm cho bạn trở thành một kỹ sư xuất sắc (đặc biệt về mặt kỹ thuật), và mình vẫn theo đuổi con đường này - học lại và củng cố những kiến thức cơ bản.
+Cho đến khi đi làm được 2 năm, mình nhận ra rằng kiến thức đã học tại trường đại học thật sự quý báu, là những nền tảng giúp mình thực hiện các bước đột phá về kỹ thuật. Kiến thức này , và mình vẫn theo đuổi con đường này - học lại và củng cố những kiến thức cơ bản.
 
 Có nhiều vấn đề mà khi làm việc, chúng ta khó có cơ hội để tiếp cận những phần nền tảng của ngành như Kiến trúc máy tính, Hệ điều hành, Mạng máy tính ... một cách có hệ thống về kiến thức. Các môn học này thường được giảng dạy tốt ở những trường đại học lớn như HUST, HCMUS, PTIT... Tuy nhiên, tiếc rằng các môn này thường được sắp xếp vào năm thứ hai hoặc thứ 3 đại học, và sau khi tốt nghiệp và đi làm vài năm, rất nhiều lập trình viên dễ quên, hoặc trở nên mơ hồ nếu không ôn tập những kiến thức này thường xuyên. Các môn này nền tảng của Computer Science mà mình đang nói đến ở đây bao gồm:
 - **Kỹ thuật điện tử**: Để trở thành một kỹ sư phần mềm giỏi, bạn nên hiểu kiến thức cơ bản về phần cứng. Sau khi học xong môn này, bạn sẽ có kiến thức về vi mạch, transistor, và logic gate, bởi đây là những thứ tạo nên CPU và RAM, từ đó tạo nền tảng để nghiên cứu kiến trúc máy tính.
