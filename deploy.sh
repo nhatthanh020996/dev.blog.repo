@@ -11,19 +11,19 @@ if [ -n "$*" ]; then
 	msg="$*"
 fi
 
-# Build the project.
-# echo ""
-# echo ""
-# echo "Committing changes to $(pwd)"
-# hugo -D
+#Build the project.
+echo ""
+echo ""
+echo "Committing changes to $(pwd)"
+hugo -D
 
-# # Go To Public folder
-# cd public
+# Go To Public folder
+cd public
 
-# # Add 'public' (Github Pages repo) changes to git and commit/push.
-# echo ""
-# echo ""
-# echo "Committing changes to $(pwd)"
+# Add 'public' (Github Pages repo) changes to git and commit/push.
+echo ""
+echo ""
+echo "Committing changes to $(pwd)"
 git add .
 git commit -m "$msg"
 git push origin main

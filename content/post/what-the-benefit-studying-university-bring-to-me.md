@@ -1,6 +1,18 @@
-# Kiến thức ở trường đại học đã mang lại cho mình điều gì?
+---
+layout:     post
+title:      ""
+description: "Kiến thức ở trường đại học đã mang lại cho mình điều gì?"
+date:    2023-06-11
+author:     "Admin"
+image: "/img/posts/isolation/title_image.jpeg"
+tags:
+    - TCP/IP
+    - Socket
+URL: "/socket-programming/"
+categories: [ Tech ]
+---
 
-Mình cũng từng học đại học, chuyên ngành Khoa học máy tính ở HUST. Những năm đi học cho đến khi ra trường, trong khoảng 1-2 năm, mình luôn băn khoăn về việc liệu có đáng để bỏ 5 năm cùng với hàng trăm triệu tiền học để theo đuổi con đường học tại trường đại học hay không. Trong khi đó, có nhiều bạn học tại các trung tâm chỉ cần 6 tháng là có thể bắt đầu làm việc hoặc cũng có các khóa học trên Udemy giúp mình nắm kiến thức trong thời gian ngắn.
+Mình cũng từng học đại học, chuyên ngành Khoa học máy tính ở Đại học Bách Khoa Hà Nội. Những năm đi học cho đến khi ra trường, trong khoảng 1-2 năm, mình luôn băn khoăn về việc liệu có đáng để bỏ 5 năm cùng với hàng trăm triệu tiền học để theo đuổi con đường học tại trường đại học hay không. Trong khi đó, có nhiều bạn học tại các trung tâm chỉ cần 6 tháng là có thể bắt đầu làm việc hoặc cũng có các khóa học trên Udemy giúp mình nắm kiến thức trong thời gian ngắn.
 
 Cho đến khi làm việc trong lĩnh vực này trong 3 năm, mình nhận ra rằng kiến thức đã học tại trường đại học thật sự là những nền tảng giúp mình thực hiện các bước đột phá kỹ thuật. Kiến thức này làm cho bạn trở thành một kỹ sư xuất sắc (đặc biệt về mặt kỹ thuật), và mình vẫn theo đuổi con đường này - học lại và củng cố những kiến thức cơ bản.
 
