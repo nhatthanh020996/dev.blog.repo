@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Git Internal"
+title:      "Git Internal (P1)"
 description: "Git là một trong những công cụ quen thuộc nhất đối với bất kì một developer nào, chúng ta làm việc với nó gần như mỗi ngày, nhưng có một sự thật là có rất nhiều lập trình viên vẫn chưa đủ tự tin khi làm việc với Git. Trong bài viết này, mình xin chia sẻ những gì
 xẩy ra phía sau những câu lệnh Git của chúng ta, tất nhiên ở một độ sâu nào đó (không đến mức phải đọc từng dòng code C, vì mình chưa đủ
 năng lực để làm việc đó). Từ đây hi vọng chúng ta có thể hiểu đươc phần nào đó về cách Git hoạt động, cũng như tự tin hơn khi sử dụng nó."

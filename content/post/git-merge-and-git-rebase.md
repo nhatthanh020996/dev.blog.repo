@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      "Git rebase và git merge"
-description: ""
+title:      "Git Internal (P2) - Git rebase và git merge"
+description: "Tiếp tục về Git Internal, trong bài viết này mình sẽ nói về cách git merge và git rebase vận hành, cũng như lúc nào thì dùng merge, lúc nào dùng rebase."
 date:    2023-10-12
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
