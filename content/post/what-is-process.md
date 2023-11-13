@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      "Tổng quan về hệ điều hành - Process"
-description: ""
+title:      "Operating System (P1) - Process"
+description: "Mình sẽ mở đầu series về Operating System với Process Management - một trong những phần quan trọng nhất trong nguyên lý hệ điều hành."
 date:    2023-10-23
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
