@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Operating System (P1) - Process"
+title:      "Operating System (P1) - Process."
 description: "Mình sẽ mở đầu series về Operating System với Process Management - một trong những phần quan trọng nhất trong nguyên lý hệ điều hành."
 date:    2023-10-23
 author:     "Admin"
@@ -12,7 +12,7 @@ categories: [ Tech ]
 ---
 
 ## 1. Process concept.
-### 1.1. The Process
+### 1.1. The Process.
 Một chương trình đang được thực thi bởi máy tính gọi là Process, ví dụ:
 Bạn có một chương trình helloworld được viết bằng C trong file helloworld.c như sau:
 ```C

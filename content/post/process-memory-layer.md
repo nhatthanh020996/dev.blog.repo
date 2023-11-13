@@ -31,6 +31,10 @@ Heap segment và stack segment là những vùng nhớ thể thay đổi trong s
     la $a0, msg
     syscall
 ```
+
+Trên đây là một chương trình helloworld đơn giản được viết bằng assembly với kiến trúc tập lệnh MIPS. Ở chương trình này do không xuất hiện lời gọi hàm, cũng như không xuất hiện cấp phát động, nên không vùng nhớ stack và heap sẽ không được sử dụng đến.
+
+Mình sẽ mô tả 
 ## 4. Stack segment.
 
 ## 5. Conclusion.
