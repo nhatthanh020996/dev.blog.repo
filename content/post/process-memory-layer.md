@@ -2,7 +2,7 @@
 layout:     post
 title:      "Operating System (P2) - Memory Layers Of A Process"
 description: "Ở trong bài viết trước về Process, mình đã có nói đến một memory representation của một process sẽ gồm những segment nào? Trong bài viết này mình sẽ nói kỹ hơn về các phần của một memory representation sẽ thay đổi ra sao trong quá trình thực thi process."
-date:    2023-10-23
+date:    2023-10-24
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
 tags:
