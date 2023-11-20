@@ -2,7 +2,7 @@
 layout:     post
 title:      "Computer Network (P1) - Berkeley Socket API"
 description: "Mạng máy tính là một trong những phần quan trọng nhất trong khoa học máy tính, vậy nên việc nắm vững kiến thức cơ bản về mạng máy tính được coi là bắt buộc với mọi lập trình viên. Chính vì lý do đó mà mình viết ra series này, để ôn tập và hệ thống lại những kiến thức mình được học qua về mảng này. Mình sẽ bắt đầu series với Berkeley Socket API."
-date:    2023-01-11
+date:    2023-11-01
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
 tags:
