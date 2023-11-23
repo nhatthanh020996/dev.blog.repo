@@ -1,140 +1,146 @@
 ---
 layout:     post
-title:      "Computer Network (P3) - Berkeley Socket API"
-description: "Bài viết này mình sẽ cùng tìm hiểu về Berkeley Socket API hay còn gọi ngắn gọn hơn là socket - một trong những khái niệm quan trọng nhất trong computer network."
-date:    2023-11-10
+title:      "Computer Network (P2) - OSI Model"
+description: "Trong bài viết này mình sẽ giới thiệu về OSI Model - Open System Interconnection Model, model này sẽ giúp chúng ta hiểu được cách mà data được truyền đi giữa các end points trong mạng INTERNET."
+date:    2023-11-07
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
 tags:
     - TCP/IP
     - Socket
     - Networking
-URL: "/socket-programming-p2/"
+URL: "/socket-programing-p2/"
 categories: [ Tech ]
 ---
+
 ## 1. Introduction.
-Socket là một trong những kiến thức low-level nhất và quan trọng nhất của computer networking. Nắm vững kiến thức về socket là tiền đề quan trọng để tiếp cận những kiến thức high-level hơn về computer networking như, TCP/IP protocol, HTTP, Websocket, SSH ... Bài viết này sẽ cung cấp cho bạn những kiến thức cơ bản sau:
+Trước khi đến đọc bài viết này, các bạn nên tham khảo bài viết trước [Link](https://nhatthanh020996.github.io/socket-programing-p1/) này, việc nắm rõ các physical components trong một INTERNET là tiền đề để hiểu bài viết này rõ ràng, và dễ để tượng tượng hơn.
 
-- Lịch sử ra đời của ARPANET và TCP/IP.
+Trong bài viết này, chúng ta sẽ tập trung để trả lời câu hỏi: Làm thế nào mà 2 máy tính có thể communicate được với nhau qua một computer network (chú ý computer network có thể là local network hoặc Internet)?.
 
-- Tìm hiểu về Berkeley Socket API.
+![](/img/network2/how.png)
 
-- Viết một chương trình đơn giản để mô tả flow hoạt động của Berkeley Socket API.
+## 2. OSI Model.
 
-Bây giờ chúng ta cùng bắt đầu bài viết nhé.
+OSI Model được chia làm 7 layers bao gồm:
+- Application Layer.
+- Presentation Layer.
+- Session Layer.
+- Transport Layer.
+- Network Layer.
+- Data Link Layer.
+- Physical Layer.
 
-## 2. Socket History.
-Làm thế nào để 2 process đang chạy trên 2 máy tính khác nhau có thể trao đổi data được với nhau? đó là lý do thúc đẩy sự ra đời của ARPANET vào đầu thập nên 70 của thế ký trước. Cũng trong những năm đầu của thập niên 70 đó, TCP/IP protocol ra đời lúc đó vẫn đang được gọi với cái tên Transmission Control Program. Sau đó vào năm 1983, TCP/IP đã được APARNET sử dụng làm protocol chính cho toàn bộ mạng máy tính của quân đội Mỹ. ARPANET và TCP/IP chính là foudation của mạng INTERNET sau này.
+![](/img/network2/OSI.png)
 
-Tại sao mình lại nhắc đến ARPANET và TCP/IP ở đây? vì mình muốn nói rằng bản thân TCP/IP không phải là một tập con của socket vì TCP/IP có trước cơ mà. Bản thân socket nó không phải là một protocol hay cái gì hết, nó đơn giản chỉ là một interface giúp người dùng máy tính có thể dễ dàng hơn để tạo ra một protocol - một việc mà trước khi có socket API, ta phải can thiệp trực tiếp vào OS Kernel, và chỉ có những nhà khoa học máy tinh mới làm được.
+Hình trên mô tả cách mà data đi qua các network components (Hình ảnh hơi nhỏ, bạn có thể mở hình ảnh trong một tab riêng để xem rõ hơn). Sau đây mình sẽ giải thích cách mà data được xử lý khi đi qua mỗi layer trong sơ đồ trên.
 
-## 3. Berkeley Socket API.
-### 3.1. History.
-Trước khi Berkeley Socket API ra đời, để tạo được một network connection trên một OS nhất định, lập trình viên phải can thiệp vào OS kernel, mỗi một loại OS khác nhau lại phải can thiệp một cách khác nhau. Năm 1983, Hệ điều hành 4.2BSD Unix ra đời từ phòng nghiên cứu của đại học Berkeley, Hệ điều hành này cung cấp cho developers bộ APIs cho phép khởi tạo và sử dụng một network connection một cách dễ dàng hơn, lúc này developers không cần phải can thiệp trực tiếp vào OS Kernel để tạo ra một network connection nữa.
+### 2.1. Application Layer.
+Giả sử khi ta gõ vào thanh URL trong một tab của trình duyệt chrome: google.com, chrome sẽ giúp ta tạo HTTP message có bố cục như sau:
+```
+GET / HTTP/1.1
+Host: www.google.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.9999.99 Safari/537.36
+Accept: text/html
+Connection: close
+```
+Đây là content của một HTTP request message, bố cục của message trên thì được quy định tại link sau đây: https://datatracker.ietf.org/doc/html/rfc2616
 
-Sau sự ra đời của Berkeley Socket API, nhiều OS khác đương thời đã implement API này, biến nó trở thành một standard interface. Hiện nay, hầu hết các hệ điều hành hiện đại cũng đang implement Berkeley Socket API. Từ khi Berkeley Socket API được implement bời hầu hết các hệ điều hành, developers đã có thể dễ dàng tạo ra và sử dụng một network connection mà không cần quan tâm đến hệ điều hành mà họ đang sử dụng là gì (vì hầu hết OS đều implement API này).
+Message được đẩy xuống Presentation Layer.
 
-Berkeley Socket API tiếp tục phát triển với một vài thay đổi nhỏ và cuối cùng trở thành một component trong POSIX specification - Portable Operating System Interface cũng là một interface khác, nhưng là một standard system interface, giúp các biến thể UNIX-like OS có thể cùng follow một standard nào đó, dẫn đến một sự thống nhất cần thiết. Ví dụ lệnh `ls` thì ở macOS, debian hay ubuntu đều mang một ý nghĩa như nhau.
+### 2.2. Presentation Layer.
+Sau khi nhận message trên Application Layer, tại Presenation layer sẽ làm những việc sau:
+- **Encryption/Decryption**: Encrypt/Decryption message bằng symmetrical key - key được lấy sau khi thực hiện SSL Handshake (Thực ra quá trình thực hiện SSL Handshake sẽ diễn ra sau khi thiết lập TCP connection, nhưng ở đây, để đơn giản, ta coi như TCP connection đã được thiết lập từ trước đó).
+- **Data Compression**: Nén message sau khi encrypt sẽ được nén lại đến tiết kiệm chi phí và tăng performance khi được gửi đi trong computer network.
+- **Translation**: Convert trên message từ string (ASCII) về dạng binary.
 
-### 3.2. Socket API functions.
-
-The Berkeley socket API cung cấp những functions sau:
-
-- `socket()`
-	```C
-	#include <sys/socket.h>
-
-	int socket(int domain, int type, int protocol);
-	```
-	Function này tạo ra một socket - một endpoint communication, ví dụ: process A muốn trao đổi data với process B, thì cả A và B đều phải tạo ra 2 endpoint và trao đổi data giữa A và B sẽ được diễn ra thông qua 2 endpoint này. Function này sẽ trả về một file descriptor (kiểu integer) - là một indentifier của một file trong UNIX-like OS, ở đây socket là một special file type. Trong UNIX-like OS, mọi thứ đều là file, file ở đây không được hiểu là file thông thường được lưu trữ trong disk, mà một entity trong UNIX-like OS.
-
-	`domain`: để chỉ communication domain, ví dụ: AF_UNIX - được dùng khi 2 processes chạy trên cùng một host. AF_INET - được dùng khi 2 processes chạy trên 2 host khác nhau, và indentifiers trong mạng máy tính của 2 host này được biểu thị bằng IPv4 Internet protocols.
-	`type`: socket type - xác định protocol sẽ được sử dụng ở tầng transport. Ví dụ: SOCK_STREAM - khi muốn áp dụng TCP ở tầng transport, SOCK_DGRAM - khi muốn áp dụng UDP ở tầng transport.
-
-
-- `bind()`
-	```C
-    #include <sys/socket.h>
-
-    int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
-	```
-	Sau khi socket entity được create bới hàm socket(), bind() function sẽ tiến hành assign một địa chỉ cho socket đó. Ví dụ: giả sự socket được tạo ra với SOCK_STREAM type, ta có thể assign cho nó address là '127.0.0.1' và port: 8080. Trong đó với giá trị của port, được biểu thị bằng 16bits => tổng số socket tối ta có thể tạo ra trong một máy tính chạy linux kernel là 2^16 - 1 = 65535. Về mặt lý thuyết, đây cũng chính là số connection tối đa mà một máy tính chạy linux kernel có thể đạt được, tất nhiên nó còn phụ thuộc vào resource về phần cứng của máy tính và nhiều yếu tố khác, nên gần như chắc chắn sẽ không đạt được con số này trên bất kỳ máy tính nào.
-
-- `listen()`
-	```
-	#include <sys/socket.h>
-
-	int listen(int sockfd, int backlog);
-	```
-	Function này chỉ sử dụng với server socket, nó đánh dấu rằng socket với file descriptor là `sockfd` bắt đầu lắng nghe yêu cầu tạo connection từ client sockets.
-
-	`sockfd`: file descriptor của server socket.
-	`backlog`: số connection tối đa mà accept queue có thể chấp nhận.
-
-- `connect()`
-	```C
-	#include <sys/socket.h>
-
-	int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
-	```
-	Hàm này chỉ thực hiện khi socket type là SOCK_STREAM, với socket type là SOCK_DGRAM thì không dùng. Client socket dùng hàm này để yêu cầu tạo connection với server socket.
-
-	`sockfd`: file descriptor của client socket.
-	`sockaddr`: address và port của server socket.
-
-	Sau khi server socket nhận lời yêu cầu tạo connection từ client socket, sẽ tiến thành three-handshake procedure, sau khi thành công three-handshake, yêu cầu sẽ được chuyển vào accept queue. Server socket sẽ lấy pop các phần tử trong accept queue để tạo connection.
+Lúc này message đã ở định dạng binary, sẽ đẩy xuống Transport Layer.
 
 
-- `accept()`
-	```C
-	#include <sys/socket.h>
+### 2.3. Session Layer.
+Session Layer sẽ làm những việc như sau:
+- Yêu thiết lập TCP connection.
+- Authentication.
+- Authorization.
 
-    int accept(int sockfd, struct sockaddr *_Nullable restrict addr, socklen_t *_Nullable restrict addrlen);
-	```
-	Hàm này chỉ thực hiện khi socket type là SOCK_STREAM, với socket type là SOCK_DGRAM thì không dùng.
+Nếu như giải thích đẩy đủ, thì trước khi thực hiện những việc làm ở Presentation Layer, TCP connection sẽ phải được thiết lập. Sau khi TCP connection established, Session Layer sẽ không tham gia vào quá trình exchange data sau đó.
 
-	accept() được thự hiện bởi socket server, sau khi accept incoming attempt, một socket mới sẽ được tạo ra, ta gọi socket này là: conn socket - đại diện cho connection giữa client và server socket. Từ đó về sau, conn socket sẽ giữa vai trò trao đổi data với client socket.
+### 2.4. Transport Layer.
+Có 2 loại protocol phổ biến được sử dụng ở layer này là: TCP và UDP.
 
-	`sockfd`: file descriptor của server socket.
-	`sockaddr`: địa chỉ + port của client socket.
+#### 2.4.1. TCP Protocol.
+Transport Layer với TCP sẽ thực hiện những việc sau:
+
+- **Segmentation**: Message nhận được từ layer trước đó sẽ được chia thành nhiều segments, mỗi một segment sẽ được add thêm vào bởi header. Với TCP protocol, kích thước của header sẽ từ 20-60 bytes (thông thường là 20 bytes, 40 bytes còn lại sẽ được sử dụng nếu cần thiết), hình vẽ dưới sẽ minh hoạ các thành phần của một TCP header: ![](/img/network2/tcp-header.png)
+
+
+    Một số phần chính trong header:
+    - **Source Port Address**: port được bind với client socket.
+
+    - **Destination Port Address**: port đang được server sử dụng.
+
+    - **Checksum**: dựa vào checksum, receiver kiểm tra xem trong quá trình data được chuyển đi trong network, liệu có segment có bị sửa đổi gì hay không.
+
+    - **Sequence Number**: receiver sẽ dựa vào Sequence Number để sắp xếp lại segments theo đúng thứ tự để tạo nên message hoàn chỉnh.
+
+    - **Acknowledgement Number**: khi  nhận segments thành công, Acknowledgement Number sẽ được gửi lại sender, thông báo receiver đã nhận message thành công. Nếu trong trường hợp segments không được gửi đến receiver, sẽ không có Acknowledgement Number nào được gửi về sender, sau một khoảng thời gian không thấy Acknowledgement Number này, sender sẽ tự động retransmit segment.
 
 
 
-- `send()`, `recv()`, `sendto()`, and `recvfrom()`
-	```C
-	#include <sys/socket.h>
+- **Flow Control**: đảm bảo receiver sẽ không bị quá tải khi nhận data từ sender, và sender cũng sẽ gửi lượng data đúng với capability mà receiver của thể nhận được.
 
-	ssize_t send(int sockfd, const void buf[.len], size_t len, int flags);
+- **Error Control**: Sử dụng Checksum trong header segment để kiểm tra xem segment có bị modify gì không trong quá trình segment đi qua network.
 
-	ssize_t sendto(int sockfd, const void buf[.len], size_t len, int flags, const struct sockaddr *dest_addr, socklen_t addrlen);
+Ở Transport Layer, ta thu được tập hợp segments.
+
+#### 2.4.1. UDP Protocol.
+Transport Layer với UDP Protocol sẽ thực hiện những việc sau:
+
+- **Segmentation**: message cũng đưa chia nhỏ thành nhiều chunks, mỗi một chunk được add thêm UDP header, header có kích thước 8 bytes, các thành phần trong UDP header được mô tả trong hình vẽ dưới đây: ![](/img/network2/udp-header.png)
+- **Error Control**: checksum tương tự TCP.
+
+Chú ý:
+    - Khi sử dụng UDP protocol, không cần tạo connection trước khi thực hiện exchange data như TCP protocol.
+    - Nếu segment bị mất trong quá trình exchange, receiver sẽ không gửi acknowledgement cho sender gửi lại segment, nên dẫn đến data loss. 
+    - UDP protocol sẽ không kiểm tra thứ tự của segment, vì vậy thứ tự của segments tại receiver sẽ có thể không đúng.
+**Kết luận**: UDP có performance tốt hơn TCP nhưng về reliability sẽ không bằng TCP.
+
+Một số services sử dụng UDP như: streaming video, song, DNS, ...
+
+### 2.5. Network Layer.
+Network layer nhận segments từ Transport layer, sẽ thực hiện những việc sau:
+
+- **Logical Addressing**: IPv4 và IPv6 gọi là logical addresses, mỗi một segment sẽ được add thêm IP header vào để tạo thành một packet. IP header gồm các thông tin được mô tả trong hình vẽ sau: ![](/img/network2/ip-header.png)
+
+    - **Source Address**: lúc này vẫn là private IP của máy tính, khi đi đến router của mạng nội bộ chúng ta, IP này sẽ bị thay bởi public IP của router *(NAT giúp ta làm điều này). Từ đó cho đến khi chạm destination, source IP sẽ không bị thay đổi.
+
+    - **Destination Address**: Địa chỉ IP của destination, ở đây chỉ public IP của server.
+
+- **Routing**: Dựa vào `Destination Address` packets sẽ được route đến `hop` kế tiếp, data sẽ được forward từ `hop` này sang `hop` khác cho đến khi đến destination.
+
+- **Path Determination**: Sử dụng các thuật toán như: OSPF, BGP, IS-IS để tìm ra đường đi tốt nhất để route packet (phần này mình cũng mơ hồ, chưa tìm hiểu kỹ, khi tìm hiểu rồi sẽ update.)
 
 
-	ssize_t recv(int sockfd, void buf[.len], size_t len, int flags);
+### 2.6. Data Link Layer.
+Data Link Layer sẽ nhận packets từ Network Layer, add thêm data link header và trailer vào mỗi packet để tạo thành một frame.
 
-	ssize_t recvfrom(int sockfd, void buf[restrict .len], size_t len,
-	                 int flags,
-	                 struct sockaddr *_Nullable restrict src_addr,
-	                 socklen_t *_Nullable restrict addrlen);
-	```
-	Sau khi connection được tạo ra, conn socket và client socket sẽ tiến hành trao đổi data với nhau. 
-	`send()`: là hàm gửi data đi tới socket khác.
-	`recv()`: là hàm nhận data từ socket khác.
+![](/img/network2/data-link.png)
 
-- `close()`
-	```C
-	#include <unistd.h>
+Khi đi qua 1 `hop`, header và trailer được add từ hop trước sẽ được bóc ra và gắn vào header và trailer mới tương ứng với `hop` đó. Header và trailer sẽ bao gồm các thành phần mô tả trong hình sau:
 
-	int close(int fd);
-	```
-	Sau khi trao đổi data xong, cả client socket và conn socket đều có thể chủ động close connection. Sau khi gọi hàm close, socket sẽ được giải phóng khỏi bộ nhớ.
+![](/img/network2/data-link-header.jpeg)
 
-### 3.3. Sequence of function calls.
-![](/img/socket/sockets-tcp-flow.webp)
-Hình ảnh trên biểu thị thứ tự các functions được call từ khi một server socket và client socket được khởi tạo, cho đến khi client socket gửi request tạo connection cho server socket, rồi quá trình trao đổi data, cuối cùng là kết thúc bằng close connection.
+### 2.7. Physical Layer.
+Physical Layer nhận frames từ Data Link Layer và chuyển từ binary data sang những physical signal như electrical signal, light signal, radio signal (xem lại bài viết viết về network component tại đây: [Link](https://nhatthanh020996.github.io/socket-programing-p1/))
 
-## 4. Reference.
-- https://csperkins.org/teaching/2007-2008/networked-systems/lecture04.pdf
-- https://en.wikipedia.org/wiki/ARPANET#cite_note-59
-- https://en.wikipedia.org/wiki/Berkeley_sockets
-- https://en.wikipedia.org/wiki/Unix_domain_socket
-- https://www.geeksforgeeks.org/packet-loss-detection-algorithms/
+![](/img/network2/physical-layer.png)
+
+Những tín hiệu vật lý sẽ được truyền đi từ `hop` này sang `hop` khác bởi network media như LAN cable, optical fiber hoặc air. Việc convert từ binary data sang physical signal sẽ được thực hiện bởi NICs, và chuyển sang dạng physical signal nào thì sẽ phụ thuộc vào network media network mà thiết bị đang sử dụng là gì.
+
+## 3. Reference.
+- https://www.youtube.com/watch?v=KZfvO1DVpjw&ab_channel=TechTerms
+- https://www.youtube.com/watch?v=jRU_ReDUaMY&ab_channel=TechTerms
+- https://www.youtube.com/watch?v=iYdW0B1olLE&t=156s&ab_channel=TechTerms
+- https://www.geeksforgeeks.org/difference-between-segments-packets-and-frames/
+- https://www.javatpoint.com/udp-protocol#:~:text=UDP%20Header%20Format,would%20be%2065%2C535%20minus%2020
+- https://en.wikipedia.org/wiki/OSI_model
