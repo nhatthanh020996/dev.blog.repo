@@ -2,7 +2,7 @@
 layout:     post
 title:      "Computer Network (P2) - OSI Model"
 description: "Trong bài viết này mình sẽ giới thiệu về OSI Model - Open System Interconnection Model, model này sẽ giúp chúng ta hiểu được cách mà data được truyền đi giữa các end points trong mạng INTERNET."
-date:    2023-11-04
+date:    2023-11-10
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
 tags:
