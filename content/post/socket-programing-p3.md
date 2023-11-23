@@ -119,3 +119,11 @@ Network layer nhân segments từ Transport layer, Network Layer sẽ làm nhữ
 ### 2.6. Data Link Layer.
 
 ### 2.7. Physical Layer.
+
+## 3. Reference.
+- https://www.youtube.com/watch?v=KZfvO1DVpjw&ab_channel=TechTerms
+- https://www.youtube.com/watch?v=jRU_ReDUaMY&ab_channel=TechTerms
+- https://www.youtube.com/watch?v=iYdW0B1olLE&t=156s&ab_channel=TechTerms
+- https://www.geeksforgeeks.org/difference-between-segments-packets-and-frames/
+- https://www.javatpoint.com/udp-protocol#:~:text=UDP%20Header%20Format,would%20be%2065%2C535%20minus%2020.
+- https://en.wikipedia.org/wiki/OSI_model
