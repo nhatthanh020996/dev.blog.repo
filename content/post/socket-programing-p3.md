@@ -16,27 +16,24 @@ categories: [ Tech ]
 ## 1. Introduction.
 Trước khi đến đọc bài viết này, các bạn nên tham khảo bài viết trước [Link](https://nhatthanh020996.github.io/socket-programing-p1/) này, việc nắm rõ các physical components trong một INTERNET là tiền đề để hiểu bài viết này rõ ràng, và dễ để tượng tượng hơn.
 
-Trong bài viết này, chúng ta sẽ tập trung để trả lời câu hỏi: Làm thế nào mà 2 máy tính có thể communicate được với nhau qua một computer network?.
+Trong bài viết này, chúng ta sẽ tập trung để trả lời câu hỏi: Làm thế nào mà 2 máy tính có thể communicate được với nhau qua một computer network (chú ý computer network có thể là local network hoặc Internet)?.
 
 ![](/img/network2/how.png)
 
-Giả sử ta có 2 máy tính được kết nối với nhau bằng cách: kết nối 2 NICs của 2 máy tính bằng 1 LAN cable + 2 connectors - RJ45, computer network được mô tả như hình vẽ bên dưới:
-
-![](/img/network2/osi-origination.png)
-
-Qua bài viết trước về [network components](https://nhatthanh020996.github.io/socket-programing-p1/) NICs sẽ convert từ binary data về physical signal, và ngược lại. Lúc này công việc của software - cụ thể ở đây là OS Kernel của 2 máy tính phải đưa binary data này về một standard nhất định. Nếu 2 máy tính này cài đặt 2 hệ điều hành khác nhau là macOS và windows, ở phần computer network của 2 OS Kernel phải cùng follow một model chung, OSI chính là một model như thế.
-
 ## 2. OSI Model.
 
-OSI Model được chia làm 7 layers, danh sách và thứ tự của từng layer được mô tả như trong hình ảnh dưới đây:
+OSI Model được chia làm 7 layers bao gồm:
+- Application Layer.
+- Presentation Layer.
+- Session Layer.
+- Transport Layer.
+- Network Layer.
+- Data Link Layer.
+- Physical Layer.
+
 ![](/img/network2/OSI.png)
 
-Sau đây mình sẽ giải thích cụ thể từng layer.
-<!-- Trên đây là OSI model, để giải thích model này mình sẽ sử dụng ví dụ sau đây:
-
-> mình sẽ gõ lên thanh địa chỉ của trình duyệt Chrome: google.com, rồi nhấn `enter` và kết quả trang tìm kiếm của google. Mình sẽ giải thích cách mà data được biến đổi qua các layer của OSI model, và routing trong mạng Internet từ lúc gõ phím `enter` cho đến khi nhận được response và reder lên trình duyệt.
-
-Để đơn giản hoá và không phải giải thích dài, mình sẽ bỏ qua việc giải thích quá trình browser của mình gửi request lên DNS server để lấy địa chỉ IP, quá trình tạo TCP connection giữa client và server. Mình sẽ chỉ tập trung giải thích các steps sau khi khi TCP connection được thiết lập, client bắt đầu trao đổi message với server. Mục đích của mình là chỉ làm rõ vài trò của từng layer trong OSI model. -->
+Hình trên mô tả cách mà data đi qua các network components (Hình ảnh hơi nhỏ, bạn có thể mở hình ảnh trong một tab riêng để xem rõ hơn). Sau đây mình sẽ giải thích cách mà data được xử lý khi đi qua mỗi layer trong sơ đồ trên.
 
 ### 2.1. Application Layer.
 Giả sử khi ta gõ vào thanh URL trong một tab của trình duyệt chrome: google.com, chrome sẽ giúp ta tạo HTTP message có bố cục như sau:
@@ -53,9 +50,9 @@ Message được đẩy xuống Presentation Layer.
 
 ### 2.2. Presentation Layer.
 Sau khi nhận message trên Application Layer, tại Presenation layer sẽ làm những việc sau:
-- **Encryption/Decryption**: Encrypt/Decryption message bằng symmetrical key - key được lấy sau khi thực hiện SSL Handshake (Thực ra quá trình thực hiện SSL Handshake sẽ diễn ra sau khi thiết lập TCP connection, nhưng ở đây ta coi như TCP connection đã được thiết lập từ trước đó).
-- **Data Compression**: Nén message trên để tiết kiệm chi phí network và tăng performance khi gửi message qua network.
-- **Translation**: Convert trên message về dạng binary.
+- **Encryption/Decryption**: Encrypt/Decryption message bằng symmetrical key - key được lấy sau khi thực hiện SSL Handshake (Thực ra quá trình thực hiện SSL Handshake sẽ diễn ra sau khi thiết lập TCP connection, nhưng ở đây, để đơn giản, ta coi như TCP connection đã được thiết lập từ trước đó).
+- **Data Compression**: Nén message sau khi encrypt sẽ được nén lại đến tiết kiệm chi phí và tăng performance khi được gửi đi trong computer network.
+- **Translation**: Convert trên message từ string (ASCII) về dạng binary.
 
 Lúc này message đã ở định dạng binary, sẽ đẩy xuống Transport Layer.
 
@@ -69,64 +66,63 @@ Session Layer sẽ làm những việc như sau:
 Nếu như giải thích đẩy đủ, thì trước khi thực hiện những việc làm ở Presentation Layer, TCP connection sẽ phải được thiết lập. Sau khi TCP connection established, Session Layer sẽ không tham gia vào quá trình exchange data sau đó.
 
 ### 2.4. Transport Layer.
-Có 2 loại protocol phổ biến được sử dụng ở layer này là: TCP và UDP. Trong trường hợp ta đang đến là truy cập `google.com` bằng trình duyệt Chrome, protocol được dùng ở layer này là TCP. Ở máy tính hiện đại, mọi việc ở Transport Layer sẽ được xử lý bởi OS Kernel, tức là lập trình viên sẽ không phải viết code để can thiệp mọi thứ diễn ra ở layer này.
+Có 2 loại protocol phổ biến được sử dụng ở layer này là: TCP và UDP.
 
 #### 2.4.1. TCP Protocol.
-Transport Layer với TCP sẽ làm những việc như sau:
+Transport Layer với TCP sẽ thực hiện những việc sau:
 
 - **Segmentation**: Message nhận được từ layer trước đó sẽ được chia thành nhiều segments, mỗi một segment sẽ được add thêm vào bởi header. Với TCP protocol, kích thước của header sẽ từ 20-60 bytes (thông thường là 20 bytes, 40 bytes còn lại sẽ được sử dụng nếu cần thiết), hình vẽ dưới sẽ minh hoạ các thành phần của một TCP header: ![](/img/network2/tcp-header.png)
 
 
-    Mình sẽ giải thích ý nghĩa của một số phần chính trong header được minh hoạ như trên:
-
-    - **Checksum**: giúp phía nhận segments kiểm tra xem trong quá trình data được chuyển đi trong network, liệu có segment có bị sửa đổi gì hay không.
-
-    - **Sequence Number**: thứ tự của segment, phía nhận segments sẽ dựa vào đây để sắp xếp lại segments theo đúng thứ tự để tạo nên message hoàn chỉnh.
-
-    - **Acknowledgement Number**: khi phía nhận segments thành công, Acknowledgement Number sẽ được gửi lại phía gửi segments để thông báo segment đã được gửi thành công. Nếu trong trường hợp segments không được gửi đến đúng phía nhận, sẽ không có Acknowledgement Number được gửi về phía gửi segment, sau một khoảng thời gian không thấy Acknowledgement Number này, phía gửi segment sẽ tự động gửi lại segment.
-
+    Một số phần chính trong header:
     - **Source Port Address**: port được bind với client socket.
 
-    - **Destination Port Address**: port đang được server sử dụng, trường hợp này là port 443 của google server.
+    - **Destination Port Address**: port đang được server sử dụng.
+
+    - **Checksum**: dựa vào checksum, receiver kiểm tra xem trong quá trình data được chuyển đi trong network, liệu có segment có bị sửa đổi gì hay không.
+
+    - **Sequence Number**: receiver sẽ dựa vào Sequence Number để sắp xếp lại segments theo đúng thứ tự để tạo nên message hoàn chỉnh.
+
+    - **Acknowledgement Number**: khi  nhận segments thành công, Acknowledgement Number sẽ được gửi lại sender, thông báo receiver đã nhận message thành công. Nếu trong trường hợp segments không được gửi đến receiver, sẽ không có Acknowledgement Number nào được gửi về sender, sau một khoảng thời gian không thấy Acknowledgement Number này, sender sẽ tự động retransmit segment.
+
 
 
 - **Flow Control**: đảm bảo receiver sẽ không bị quá tải khi nhận data từ sender, và sender cũng sẽ gửi lượng data đúng với capability mà receiver của thể nhận được.
 
 - **Error Control**: Sử dụng Checksum trong header segment để kiểm tra xem segment có bị modify gì không trong quá trình segment đi qua network.
 
-Như vậy, sau kết thúc Transport layer, ta thu được tập hợp segments.
-#### 2.4.1. UDP Protocol.
-Transport Layer với UDP sẽ làm những việc như sau:
+Ở Transport Layer, ta thu được tập hợp segments.
 
-- **Segmentation**: tương tự như TCP, nhưng UDP header chỉ có kích thước 8 bytes, các thành phần trong UDP header được mô tả trong hình vẽ dưới đây: ![](/img/network2/udp-header.png)
+#### 2.4.1. UDP Protocol.
+Transport Layer với UDP Protocol sẽ thực hiện những việc sau:
+
+- **Segmentation**: message cũng đưa chia nhỏ thành nhiều chunks, mỗi một chunk được add thêm UDP header, header có kích thước 8 bytes, các thành phần trong UDP header được mô tả trong hình vẽ dưới đây: ![](/img/network2/udp-header.png)
 - **Error Control**: checksum tương tự TCP.
 
 Chú ý:
-    - Khi sử dụng UDP protocol, không cần tạo connection trước khi thực hiện exchange data như TCP.
-    - Nếu segment bị mất trong quá trình exchange, receiver sẽ không gửi acknowledgement để yêu cầu sender gửi lại segment. 
-    - UDP protocol cũng sẽ không kiểm tra thứ tự của segment, vì vậy thứ tự của segments tại receiver sẽ có thể không đúng.
-    => Sử dụng UDP sẽ có performance tốt hơn TCP nhưng về reliability sẽ không bằng TCP.
+    - Khi sử dụng UDP protocol, không cần tạo connection trước khi thực hiện exchange data như TCP protocol.
+    - Nếu segment bị mất trong quá trình exchange, receiver sẽ không gửi acknowledgement cho sender gửi lại segment, nên dẫn đến data loss. 
+    - UDP protocol sẽ không kiểm tra thứ tự của segment, vì vậy thứ tự của segments tại receiver sẽ có thể không đúng.
+**Kết luận**: UDP có performance tốt hơn TCP nhưng về reliability sẽ không bằng TCP.
 
-Một số service sử dụng UDP như: streaming video, song, DNS, ...
+Một số services sử dụng UDP như: streaming video, song, DNS, ...
 
 ### 2.5. Network Layer.
-Network layer nhận segments từ Transport layer, Network Layer sẽ làm những việc như sau:
+Network layer nhận segments từ Transport layer, sẽ thực hiện những việc sau:
 
-- **Logical Addressing**: IPv4 và IPv6 gọi là logical addresses, mỗi một segment sẽ được add thêm header vào để tạo thành một packet. Header này gồm các thông tin được mô tả trong hình vẽ sau: ![](/img/network2/ip-header.png)
+- **Logical Addressing**: IPv4 và IPv6 gọi là logical addresses, mỗi một segment sẽ được add thêm IP header vào để tạo thành một packet. IP header gồm các thông tin được mô tả trong hình vẽ sau: ![](/img/network2/ip-header.png)
 
     - **Source Address**: lúc này vẫn là private IP của máy tính, khi đi đến router của mạng nội bộ chúng ta, IP này sẽ bị thay bởi public IP của router *(NAT giúp ta làm điều này). Từ đó cho đến khi chạm destination, source IP sẽ không bị thay đổi.
 
-    - **Destination Address**: Địa chỉ IP của destination, ở đây chỉ public IP.
+    - **Destination Address**: Địa chỉ IP của destination, ở đây chỉ public IP của server.
 
-- **Routing**: Dựa vào `Destination Address` packets sẽ được route đến `hop` kế tiếp cho đến khi packets chạm đến destination.
+- **Routing**: Dựa vào `Destination Address` packets sẽ được route đến `hop` kế tiếp, data sẽ được forward từ `hop` này sang `hop` khác cho đến khi đến destination.
 
 - **Path Determination**: Sử dụng các thuật toán như: OSPF, BGP, IS-IS để tìm ra đường đi tốt nhất để route packet (phần này mình cũng mơ hồ, chưa tìm hiểu kỹ, khi tìm hiểu rồi sẽ update.)
 
-Trên các endpoints như máy tính, điện thoại, ... các công việc của Network layer được thực hiện bới OS Kernel's network stack.
-
 
 ### 2.6. Data Link Layer.
-Data Link Layer sẽ nhận packets từ Network Layer, add thêm header và trailer vào mỗi packet để tạo thành một frame.
+Data Link Layer sẽ nhận packets từ Network Layer, add thêm data link header và trailer vào mỗi packet để tạo thành một frame.
 
 ![](/img/network2/data-link.png)
 
