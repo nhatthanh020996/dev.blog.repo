@@ -14,7 +14,7 @@ categories: [ Tech ]
 ---
 
 ## 1. Introduction.
-Trước khi đến đọc bài viết này, các bạn nên tham khảo bài viết trước link này, việc nắm rõ các physical components trong một INTERNET là tiền đề để hiểu bài viết này rõ ràng hơn, và dễ để tượng tượng hơn.
+Trước khi đến đọc bài viết này, các bạn nên tham khảo bài viết trước [Link](https://nhatthanh020996.github.io/socket-programing-p1/) này, việc nắm rõ các physical components trong một INTERNET là tiền đề để hiểu bài viết này rõ ràng hơn, và dễ để tượng tượng hơn.
 
 Trong bài viết này, chúng ta sẽ tập trung để trả lời câu hỏi: Làm thế nào mà 2 máy tính có thể communicate được với nhau qua một computer network?.
 
@@ -103,7 +103,7 @@ Chú ý:
 Một số service sử dụng UDP như: streaming video, song, DNS, ...
 
 ### 2.5. Network Layer.
-Network layer nhân segments từ Transport layer, Network Layer sẽ làm những việc như sau:
+Network layer nhận segments từ Transport layer, Network Layer sẽ làm những việc như sau:
 
 - **Logical Addressing**: IPv4 và IPv6 gọi là logical addresses, mỗi một segment sẽ được add thêm header vào để tạo thành một packet. Header này gồm các thông tin được mô tả trong hình vẽ sau: ![](/img/network2/ip-header.png)
 
@@ -115,10 +115,24 @@ Network layer nhân segments từ Transport layer, Network Layer sẽ làm nhữ
 
 - **Path Determination**: Sử dụng các thuật toán như: OSPF, BGP, IS-IS để tìm ra đường đi tốt nhất để route packet (phần này mình cũng mơ hồ, chưa tìm hiểu kỹ, khi tìm hiểu rồi sẽ update.)
 
+Trên các endpoints như máy tính, điện thoại, ... các công việc của Network layer được thực hiện bới OS Kernel's network stack.
+
 
 ### 2.6. Data Link Layer.
+Data Link Layer sẽ nhận packets từ Network Layer, add thêm header và trailer vào mỗi packet để tạo thành một frame.
+
+![](/img/network2/data-link.png)
+
+Khi đi qua 1 `hop`, header và trailer được add từ hop trước sẽ được bóc ra và gắn vào header và trailer mới tương ứng với `hop` đó. Header và trailer sẽ bao gồm các thành phần mô tả trong hình sau:
+
+![](/img/network2/data-link-header.jpeg)
 
 ### 2.7. Physical Layer.
+Physical Layer nhận frames từ Data Link Layer và chuyển từ binary data sang những physical signal như electrical signal, light signal, radio signal (xem lại bài viết viết về network component tại đây: [Link](https://nhatthanh020996.github.io/socket-programing-p1/))
+
+![](/img/network2/physical-layer.png)
+
+Những tín hiệu vật lý sẽ được truyền đi từ `hop` này sang `hop` khác bởi network media như LAN cable, optical fiber hoặc air. Việc convert từ binary data sang physical signal sẽ được thực hiện bởi NICs, và chuyển sang dạng physical signal nào thì sẽ phụ thuộc vào network media network mà thiết bị đang sử dụng là gì.
 
 ## 3. Reference.
 - https://www.youtube.com/watch?v=KZfvO1DVpjw&ab_channel=TechTerms
