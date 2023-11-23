@@ -14,27 +14,32 @@ categories: [ Tech ]
 ---
 
 ## 1. Introduction.
-Trước khi đến đọc bài viết này, các bạn nên tham khảo bài viết trước [Link](https://nhatthanh020996.github.io/socket-programing-p1/) này, việc nắm rõ các physical components trong một INTERNET là tiền đề để hiểu bài viết này rõ ràng hơn, và dễ để tượng tượng hơn.
+Trước khi đến đọc bài viết này, các bạn nên tham khảo bài viết trước [Link](https://nhatthanh020996.github.io/socket-programing-p1/) này, việc nắm rõ các physical components trong một INTERNET là tiền đề để hiểu bài viết này rõ ràng, và dễ để tượng tượng hơn.
 
 Trong bài viết này, chúng ta sẽ tập trung để trả lời câu hỏi: Làm thế nào mà 2 máy tính có thể communicate được với nhau qua một computer network?.
 
 ![](/img/network2/how.png)
 
-Giả sử ta có 2 máy tính được kết nối với nhau bằng cách kết nối 2 NIC ở 2 máy tính với nhau bằng 1 LAN cable và 2 connectors - RJ45, computer network được mô tả như hình vẽ bên dưới:
+Giả sử ta có 2 máy tính được kết nối với nhau bằng cách: kết nối 2 NICs của 2 máy tính bằng 1 LAN cable + 2 connectors - RJ45, computer network được mô tả như hình vẽ bên dưới:
 
 ![](/img/network2/osi-origination.png)
 
-Như ta được biết qua bài viết trước về network components sẽ giúp convert từ binary data về tín electrical signal, và ngược lại. Lúc này công việc của software - cụ thể ở đây là OS Kernel của 2 máy tính phải đưa binary data này về một standard nhất định. Nếu 2 máy tính này cài đặt 2 hệ điều hành khác nhau là macOS và windows, ở phần computer network trong 2 OS Kernel của 2 hệ hành này phải cùng implement một model chung, OSI chính là một model như thế.
+Qua bài viết trước về [network components](https://nhatthanh020996.github.io/socket-programing-p1/) NICs sẽ convert từ binary data về physical signal, và ngược lại. Lúc này công việc của software - cụ thể ở đây là OS Kernel của 2 máy tính phải đưa binary data này về một standard nhất định. Nếu 2 máy tính này cài đặt 2 hệ điều hành khác nhau là macOS và windows, ở phần computer network của 2 OS Kernel phải cùng follow một model chung, OSI chính là một model như thế.
 
 ## 2. OSI Model.
+
+OSI Model được chia làm 7 layers, danh sách và thứ tự của từng layer được mô tả như trong hình ảnh dưới đây:
 ![](/img/network2/OSI.png)
-Trên đây là OSI model, để giải thích model này mình sẽ sử dụng ví dụ sau đây:
+
+Sau đây mình sẽ giải thích cụ thể từng layer.
+<!-- Trên đây là OSI model, để giải thích model này mình sẽ sử dụng ví dụ sau đây:
 
 > mình sẽ gõ lên thanh địa chỉ của trình duyệt Chrome: google.com, rồi nhấn `enter` và kết quả trang tìm kiếm của google. Mình sẽ giải thích cách mà data được biến đổi qua các layer của OSI model, và routing trong mạng Internet từ lúc gõ phím `enter` cho đến khi nhận được response và reder lên trình duyệt.
 
-Để đơn giản hoá và không phải giải thích dài, mình sẽ bỏ qua việc giải thích quá trình browser của mình gửi request lên DNS server để lấy địa chỉ IP, quá trình tạo TCP connection giữa client và server. Mình sẽ chỉ tập trung giải thích các steps sau khi khi TCP connection được thiết lập, client bắt đầu trao đổi message với server. Mục đích của mình là chỉ làm rõ vài trò của từng layer trong OSI model.
+Để đơn giản hoá và không phải giải thích dài, mình sẽ bỏ qua việc giải thích quá trình browser của mình gửi request lên DNS server để lấy địa chỉ IP, quá trình tạo TCP connection giữa client và server. Mình sẽ chỉ tập trung giải thích các steps sau khi khi TCP connection được thiết lập, client bắt đầu trao đổi message với server. Mục đích của mình là chỉ làm rõ vài trò của từng layer trong OSI model. -->
 
 ### 2.1. Application Layer.
+Giả sử khi ta gõ vào thanh URL trong một tab của trình duyệt chrome: google.com, chrome sẽ giúp ta tạo HTTP message có bố cục như sau:
 ```
 GET / HTTP/1.1
 Host: www.google.com
@@ -42,15 +47,17 @@ User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Accept: text/html
 Connection: close
 ```
-Ở application layer, chrome sẽ giúp ta tạo HTTP message tương tự như trên.
+Đây là content của một HTTP request message, bố cục của message trên thì được quy định tại link sau đây: https://datatracker.ietf.org/doc/html/rfc2616
+
+Message được đẩy xuống Presentation Layer.
 
 ### 2.2. Presentation Layer.
-Presenation layer sẽ làm những việc sau:
+Sau khi nhận message trên Application Layer, tại Presenation layer sẽ làm những việc sau:
 - **Encryption/Decryption**: Encrypt/Decryption message bằng symmetrical key - key được lấy sau khi thực hiện SSL Handshake (Thực ra quá trình thực hiện SSL Handshake sẽ diễn ra sau khi thiết lập TCP connection, nhưng ở đây ta coi như TCP connection đã được thiết lập từ trước đó).
 - **Data Compression**: Nén message trên để tiết kiệm chi phí network và tăng performance khi gửi message qua network.
-- **Translation**: Convert HTTP message nhận được từ Application Layer về dạng binary.
+- **Translation**: Convert trên message về dạng binary.
 
-Lúc này message đã ở định dạng binary, sẽ đẩy xuống Session Layer để xử lý tiếp.
+Lúc này message đã ở định dạng binary, sẽ đẩy xuống Transport Layer.
 
 
 ### 2.3. Session Layer.
@@ -59,7 +66,7 @@ Session Layer sẽ làm những việc như sau:
 - Authentication.
 - Authorization.
 
-Nếu như giải thích đẩy đủ, thì trước khi thực hiện những việc làm ở Presentation Layer, TCP sẽ phải được thiết lập trước. Sau khi connection established, Session Layer sẽ không tham gia vào quá trình exchange data sau đó.
+Nếu như giải thích đẩy đủ, thì trước khi thực hiện những việc làm ở Presentation Layer, TCP connection sẽ phải được thiết lập. Sau khi TCP connection established, Session Layer sẽ không tham gia vào quá trình exchange data sau đó.
 
 ### 2.4. Transport Layer.
 Có 2 loại protocol phổ biến được sử dụng ở layer này là: TCP và UDP. Trong trường hợp ta đang đến là truy cập `google.com` bằng trình duyệt Chrome, protocol được dùng ở layer này là TCP. Ở máy tính hiện đại, mọi việc ở Transport Layer sẽ được xử lý bởi OS Kernel, tức là lập trình viên sẽ không phải viết code để can thiệp mọi thứ diễn ra ở layer này.
@@ -139,5 +146,5 @@ Những tín hiệu vật lý sẽ được truyền đi từ `hop` này sang `h
 - https://www.youtube.com/watch?v=jRU_ReDUaMY&ab_channel=TechTerms
 - https://www.youtube.com/watch?v=iYdW0B1olLE&t=156s&ab_channel=TechTerms
 - https://www.geeksforgeeks.org/difference-between-segments-packets-and-frames/
-- https://www.javatpoint.com/udp-protocol#:~:text=UDP%20Header%20Format,would%20be%2065%2C535%20minus%2020.
+- https://www.javatpoint.com/udp-protocol#:~:text=UDP%20Header%20Format,would%20be%2065%2C535%20minus%2020
 - https://en.wikipedia.org/wiki/OSI_model
