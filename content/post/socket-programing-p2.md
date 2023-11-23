@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      "Computer Network (P2) - Berkeley Socket API"
+title:      "Computer Network (P3) - Berkeley Socket API"
 description: "Bài viết này mình sẽ cùng tìm hiểu về Berkeley Socket API hay còn gọi ngắn gọn hơn là socket - một trong những khái niệm quan trọng nhất trong computer network."
-date:    2023-11-07
+date:    2023-11-10
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
 tags:
