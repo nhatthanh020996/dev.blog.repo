@@ -22,7 +22,7 @@ Trong bài viết này, chúng ta sẽ tập trung để trả lời câu hỏi:
 
 ## 2. OSI Model.
 
-OSI Model được chia làm 7 layers bao gồm:
+OSI Model partions data flow trong suốt quá trình communication thành 7 abstract layers, bao gồm
 - Application Layer.
 - Presentation Layer.
 - Session Layer.
@@ -33,7 +33,7 @@ OSI Model được chia làm 7 layers bao gồm:
 
 ![](/img/network2/OSI.png)
 
-Hình trên mô tả cách mà data đi qua các network components (Hình ảnh hơi nhỏ, bạn có thể mở hình ảnh trong một tab riêng để xem rõ hơn). Sau đây mình sẽ giải thích cách mà data được xử lý khi đi qua mỗi layer trong sơ đồ trên.
+Hình trên mô tả sự thay đổi data flow trong communication system (Hình ảnh hơi nhỏ, bạn có thể mở hình ảnh trong một tab riêng để xem rõ hơn). Có những network components implement đầy đủ cả 7 abstract layers, nhưng cũng có những components chỉ implement một số layer nhất định, ví dụ: client và server implemtent đầy đủ 7 layers, trong khi đó switchs chỉ implement 2 layers cuối, routers chỉ implement 3 layers cuối. Sau đây mình sẽ giải thích cách mà data được xử lý khi đi qua mỗi layer trong sơ đồ trên.
 
 ### 2.1. Application Layer.
 Giả sử khi ta gõ vào thanh URL trong một tab của trình duyệt chrome: google.com, chrome sẽ giúp ta tạo HTTP message có bố cục như sau:
