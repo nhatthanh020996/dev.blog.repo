@@ -14,15 +14,15 @@ URL: "/socket-programming-p4/"
 categories: [ Tech ]
 ---
 
-## Introduction.
+## 1. Introduction.
 Trong bài viết này, mình sẽ sử dụng `socket` module - một standard module trong python để tạo socket. `socket` module thực ra là một wrapper của socket interface in C, vì vậy nó cũng sẽ có đẩy đủ những function như: `bind()`, `listen()`, `connect()`, `accept()`, `recv()`, `send()`, `close()`, `shutdown()`, ... `socket` module được sử dụng để tạo underlying webserver của hầu hết các webframework trong python như: Django, FastAPI, Flask
 
 Sau khi kết thúc bài viết này chúng ta sẽ nắm được những kiến thức sau:
 - Tạo được client - server đơn giản, client và server giao tiếp với nhau bằng TCP protocol.
 - Kết hợp với bài viết trước về [OSI model](https://nhatthanh020996.github.io/socket-programing-p3/), ta có thể mapping xem phần code nào sẽ tương ứng với layer nào trong OSI model.
 
-## Echo Client and Server
-### Socket Server.
+## 2. Echo Client and Server
+### 2.1. Socket Server.
 socket server:
 ```python
 # echo-server.py
@@ -44,7 +44,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
             conn.sendall(data)
 ```
 
-### Socket Client.
+### 2.2. Socket Client.
 Code để tạo một socket client:
 ```python
 # echo-client.py
@@ -62,9 +62,9 @@ print(f"Received {data!r}")
 ```
 
 
-## Handling Multiple Connections.
+## 3. Handling Multiple Connections.
 
-### Simple.
+### 3.1. Simple.
 Đây là cách dễ nhất để tạo ra một server, mình sẽ tạo ra một infinite loop để look up `Accept Queue`, Nếu `Accept Queue` chứa attempt connection từ clients, attempt connections này sẽ được pop ra để handle. Với cách làm này, những attempt connections này sẽ được xử lý tuần tự, tức sẽ xẩy ra hiện tượng blocking, đây là điểm yếu của các làm này.
 
 **Chú ý**: `Accept Queue` là một queue, phần tử trong queue này là danh sách những request tạo connection từ clients, những request này đã pass three-way handshake và sẵn sàng tạo connection.
@@ -89,7 +89,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
                 conn.sendall(data)
 ```
 
-### Using multithreads.
+### 3.2. Using multithreads.
 Ở cách làm này, mỗi một connection sẽ được handle trong một thread riêng dành cho nó, vì vậy ta có thể handle nhiều connections trong một thời điểm. Điểm yếu của cách làm này đó là danh sách attempt connections vẫn sẽ được accept lần lượt, nên vẫn có thể tạo blocking. Mặc dù vậy cách làm này đã tốt hơn cách trước rất nhiều.
 ```python
 # echo-server.py
@@ -120,8 +120,8 @@ if __name__ == '__main__':
 	serve_forever()
 ```
 
-### Using select().
+### 3.3. Using select().
 
-## Reference.
+## 4. Reference.
 - https://realpython.com/python-sockets/
 - https://docs.python.org/3/howto/sockets.html#
