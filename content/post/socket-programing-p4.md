@@ -26,7 +26,7 @@ Bây giờ chúng ta cùng bắt đầu bài viết nhé.
 ## 2. Socket History.
 Làm thế nào để 2 process đang chạy trên 2 máy tính khác nhau có thể trao đổi data được với nhau? đó là lý do thúc đẩy sự ra đời của ARPANET vào đầu thập nên 70 của thế ký trước. Cũng trong những năm đầu của thập niên 70 đó, TCP/IP protocol ra đời lúc đó vẫn đang được gọi với cái tên Transmission Control Program. Sau đó vào năm 1983, TCP/IP đã được APARNET sử dụng làm protocol chính cho toàn bộ mạng máy tính của quân đội Mỹ. ARPANET và TCP/IP chính là foudation của mạng INTERNET sau này.
 
-Tại sao mình lại nhắc đến ARPANET và TCP/IP ở đây? vì mình muốn nói rằng bản thân TCP/IP không phải là một tập con của socket vì TCP/IP có trước cơ mà. Bản thân socket nó không phải là một protocol hay cái gì hết, nó đơn giản chỉ là một interface giúp người dùng máy tính có thể dễ dàng hơn để tạo ra một protocol - một việc mà trước khi có socket API, ta phải can thiệp trực tiếp vào OS Kernel, và chỉ có những nhà khoa học máy tinh mới làm được.
+Tại sao mình lại nhắc đến ARPANET và TCP/IP ở đây? vì mình muốn nói rằng bản thân TCP/IP không phải là một tập con của socket vì TCP/IP có trước cơ mà. Bản thân socket nó không phải là một protocol hay cái gì hết, nó đơn giản chỉ là một interface giúp người dùng máy tính có thể dễ dàng hơn để tạo ra một network connection - một việc mà trước khi có socket API, ta phải can thiệp trực tiếp vào OS Kernel, và chỉ có những nhà khoa học máy tinh mới làm được.
 
 ## 3. Berkeley Socket API.
 ### 3.1. History.
