@@ -2,7 +2,7 @@
 layout:     post
 title:      "Computer Network (P4) - How To Create A TCP Client - Server in Python"
 description: "Ở bài viết trước, mình nói về Berkeley Socket API - một interface giúp developer có thể dễ dàng để tạo ra một network connection mà không cần quan tâm đến OS đang sử dụng là gì, điều mà rất khó để làm được trước sự ra đời của socket. Trong bài viết này mình sẽ viết một Client - Server bằng Python để mô tả Berkeley Socket API"
-date:    2023-11-10
+date:    2023-11-14
 author:     "Admin"
 image: "/img/posts/isolation/title_image.jpeg"
 tags:
